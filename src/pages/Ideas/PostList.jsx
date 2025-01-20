@@ -82,7 +82,7 @@ const PostList = () => {
   return (
     <div className="py-6 px-4 w-full md:max-w-[1080px] mx-auto flex flex-col sm:px-6">
       {/* Sort and Items per Page Selection */}
-      <div className="flex justify-between items-center mb-8 px-6 sm:px-4">
+      <div className="flex justify-between items-center mb-12 mt-5 px-2 sm:px-4">
         {/* Showing info */}
         <div className="text-gray-500">
           Showing{" "}
@@ -139,7 +139,7 @@ const PostList = () => {
       </div>
       {/* Post List */}
       {loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:px-4 md:px-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 px-16 sm:px-12 md:px-0">
           {Array(size)
             .fill(0)
             .map((_, index) => (
@@ -163,7 +163,7 @@ const PostList = () => {
             ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:px-4 md:px-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 px-16 sm:px-12 md:px-0">
           {posts.map((post, index) => {
             const imageUrl =
               post.medium_image[0]?.url ||
