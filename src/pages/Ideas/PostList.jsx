@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { format } from "date-fns";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import Card from "../../components/Card"; // Import komponen Card
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
@@ -13,6 +14,7 @@ const PostList = () => {
   const [loading, setLoading] = useState(true);
   const [totalPages, setTotalPages] = useState(1);
   const [paginationLinks, setPaginationLinks] = useState([]);
+  const [meta, setMeta] = useState(null);
 
   useEffect(() => {
     fetchPosts();
@@ -40,6 +42,7 @@ const PostList = () => {
         },
       );
       setPosts(response.data.data);
+      setMeta(response.data.meta);
       setTotalPages(response.data.meta.last_page);
       setPaginationLinks(response.data.meta.links);
     } catch (error) {
@@ -71,26 +74,83 @@ const PostList = () => {
   return (
     <div className="container mx-auto p-4">
       {/* Sort and Items per Page Selection */}
-      <div className="flex justify-between mb-4">
-        <div>
-          <label className="mr-2">Sort by:</label>
-          <select value={sort} onChange={handleSortChange}>
-            <option value="-published_at">Newest</option>
-            <option value="published_at">Oldest</option>
-          </select>
+
+      <div className="flex justify-between items-center mb-4">
+        {/* Showing info */}
+        <div className="text-gray-500">
+          Showing{" "}
+          <span className="font-medium text-gray-700">
+            {(page - 1) * size + 1}
+          </span>
+          -
+          <span className="font-medium text-gray-700">
+            {Math.min(page * size, 274)}
+          </span>{" "}
+          of
+          <span className="font-medium text-gray-700"> 274</span>
         </div>
-        <div>
-          <label className="mr-2">Items per page:</label>
-          <select value={size} onChange={handleSizeChange}>
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="50">50</option>
-          </select>
+        <div className="flex flex-row gap-2">
+          <div className="flex items-center gap-2">
+            <label
+              htmlFor="items-per-page"
+              className="text-sm font-medium text-gray-600"
+            >
+              Items per page:
+            </label>
+            <select
+              id="items-per-page"
+              value={size}
+              onChange={handleSizeChange}
+              className="px-5 py-2 text-sm bg-white border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500"
+            >
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+            </select>
+          </div>
+
+          {/* Sort by */}
+          <div className="flex items-center gap-2">
+            <label
+              htmlFor="sort-by"
+              className="text-sm font-medium text-gray-600"
+            >
+              Sort by:
+            </label>
+            <select
+              id="sort-by"
+              value={sort}
+              onChange={handleSortChange}
+              className="px-5 py-2 text-sm bg-white border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500"
+            >
+              <option value="-published_at">Newest</option>
+              <option value="published_at">Oldest</option>
+            </select>
+          </div>
         </div>
+        {/* Items per page */}
       </div>
+
       {/* Post List */}
+
       {loading ? (
-        <div>Loading...</div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {Array(size) // Array berdasarkan jumlah items per halaman
+            .fill(0)
+            .map((_, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-lg shadow-lg overflow-hidden animate-pulse"
+              >
+                <div className="w-full h-48 bg-gray-300"></div>
+                <div className="p-4">
+                  <div className="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
+                  <div className="h-6 bg-gray-300 rounded w-full mb-4"></div>
+                  <div className="h-3 bg-gray-200 rounded w-5/6"></div>
+                </div>
+              </div>
+            ))}
+        </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {posts.map((post) => {
@@ -104,29 +164,19 @@ const PostList = () => {
             );
 
             return (
-              <div
+              <Card
                 key={post.id}
-                className="card bg-white rounded-lg shadow-lg overflow-hidden"
-              >
-                <img
-                  src={imageUrl}
-                  alt={post.title}
-                  className="w-full h-48 object-cover"
-                  loading="lazy"
-                  onError={handleImageError}
-                />
-                <div className="p-4">
-                  <p className="text-xs text-gray-400">{formattedDate}</p>
-                  <h3 className="text-lg font-semibold line-clamp-3">
-                    {post.title}
-                  </h3>
-                  <p className="text-sm text-gray-500 mt-2">{post.excerpt}</p>
-                </div>
-              </div>
+                imageUrl={imageUrl}
+                formattedDate={formattedDate}
+                title={post.title}
+                excerpt={post.excerpt}
+                onError={handleImageError}
+              />
             );
           })}
         </div>
       )}
+
       {/* Pagination */}
       <div className="mt-4 flex justify-center items-center space-x-2">
         {/* Prev button */}
@@ -171,7 +221,7 @@ const PostList = () => {
             <FaChevronRight size={18} />
           </button>
         )}
-      </div>{" "}
+      </div>
     </div>
   );
 };
