@@ -10,15 +10,19 @@ const Ideas = () => {
   };
 
   useEffect(() => {
+    const handleScroll = () => {
+      window.requestAnimationFrame(() => {
+        setOffsetY(window.scrollY);
+      });
+    };
     window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   return (
     <>
-      <div className="relative h-[50vh] overflow-hidden">
+      <div className="relative h-[90vh] overflow-hidden">
         {/* Overlay Hitam dengan Segitiga */}
         <div
           className="absolute inset-0 bg-black opacity-50 z-10"
@@ -29,12 +33,14 @@ const Ideas = () => {
         ></div>
 
         {/* Background Image with Gradient Overlay */}
+
         <div
           className="absolute top-0 left-0 w-full h-full bg-cover bg-center bg-gradient-to-t from-black to-transparent"
           style={{
             backgroundImage: "url('/banner-ideas.webp')",
             transform: `translateY(${offsetY * 0.5}px)`,
-            clipPath: "polygon(0 0, 100% 0%, 100% 80%, 0 100%)", // Sama seperti overlay hitam
+            clipPath: "polygon(0 0, 100% 0%, 100% 80%, 0 100%)",
+            willChange: "transform",
           }}
         ></div>
 
