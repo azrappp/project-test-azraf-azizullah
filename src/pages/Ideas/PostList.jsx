@@ -72,7 +72,7 @@ const PostList = () => {
   };
 
   return (
-    <div className="container mx-auto py-6">
+    <div className="container mx-auto py-6 px-6">
       {/* Sort and Items per Page Selection */}
       <div className="flex justify-between items-center mb-8">
         {/* Showing info */}
