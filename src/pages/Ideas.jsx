@@ -49,7 +49,6 @@ const Ideas = () => {
           <p className="text-lg mt-2">Where all our great things begin</p>
         </div>
       </div>
-
       <PostList />
     </>
   );

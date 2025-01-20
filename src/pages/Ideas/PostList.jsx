@@ -80,9 +80,9 @@ const PostList = () => {
   };
 
   return (
-    <div className="mx-auto py-6 px-6 max-w-[1080px]">
+    <div className="py-6 px-4 w-full md:max-w-[1080px] mx-auto flex flex-col sm:px-6">
       {/* Sort and Items per Page Selection */}
-      <div className="flex justify-between items-center mb-8 px-4">
+      <div className="flex justify-between items-center mb-8 px-6 sm:px-4">
         {/* Showing info */}
         <div className="text-gray-500">
           Showing{" "}
@@ -139,7 +139,7 @@ const PostList = () => {
       </div>
       {/* Post List */}
       {loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 px-16 md:px-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:px-4 md:px-0">
           {Array(size)
             .fill(0)
             .map((_, index) => (
@@ -163,7 +163,7 @@ const PostList = () => {
             ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 px-16 md:px-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:px-4 md:px-0">
           {posts.map((post, index) => {
             const imageUrl =
               post.medium_image[0]?.url ||
@@ -172,7 +172,7 @@ const PostList = () => {
             const formattedDate = format(
               new Date(post.created_at),
               "d MMMM yyyy",
-            );
+            ).toUpperCase();
 
             return (
               <Card
@@ -188,7 +188,8 @@ const PostList = () => {
         </div>
       )}
       {/* Pagination */}
-      <div className="my-10 flex justify-center items-center space-x-2 mx-auto">
+
+      <div className="my-10 flex justify-center items-center space-x-2 mx-auto sm:px-4">
         {/* Prev button */}
         {paginationLinks[0]?.url && (
           <button
@@ -203,19 +204,40 @@ const PostList = () => {
         )}
 
         {/* Page numbers */}
-        {paginationLinks.slice(1, paginationLinks.length - 1).map((link) => (
-          <button
-            key={link.label}
-            onClick={() => handlePageChange(Number(link.label))}
-            className={`px-3 py-1 rounded-md ${
-              link.active
-                ? "bg-orange-500 text-white"
-                : "text-gray-700 hover:bg-gray-100"
-            }`}
-          >
-            {link.label}
-          </button>
-        ))}
+        {paginationLinks
+          .slice(1, paginationLinks.length - 1)
+          .map((link, index) => {
+            // Responsiveness logic for page numbers
+            const currentPage = Number(link.label);
+            const showPage =
+              page === currentPage || // Always show current page
+              currentPage === 1 || // Always show first page
+              currentPage === totalPages || // Always show last page
+              (currentPage >= page - 1 && currentPage <= page + 1); // Show +/- 1 pages around current
+
+            return (
+              <button
+                key={link.label}
+                onClick={() => handlePageChange(Number(link.label))}
+                className={`px-3 py-1 rounded-md ${
+                  link.active
+                    ? "bg-orange-500 text-white"
+                    : "text-gray-700 hover:bg-gray-100"
+                } ${showPage ? "block" : "hidden"} xl:block`}
+              >
+                {link.label}
+              </button>
+            );
+          })}
+
+        {/* Ellipsis for overflow */}
+        <span
+          className={`hidden xl:block text-gray-500 ${
+            page < totalPages - 2 ? "block" : "hidden"
+          }`}
+        >
+          ...
+        </span>
 
         {/* Next button */}
         {paginationLinks[paginationLinks.length - 1]?.url && (

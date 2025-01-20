@@ -11,7 +11,7 @@ const Card = ({ imageUrl, formattedDate, title, excerpt, onError }) => {
         onError={onError}
       />
       <div className="flex flex-col justify-between px-4 py-5 h-40">
-        <p className="text-sm text-gray-400">{formattedDate}</p>
+        <p className="text-md text-gray-400">{formattedDate}</p>
         <h3 className="text-lg font-semibold line-clamp-3">{title}</h3>
         <p className="text-sm text-gray-500 mt-2">{excerpt}</p>
       </div>
