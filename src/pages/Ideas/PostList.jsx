@@ -72,10 +72,9 @@ const PostList = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto py-6">
       {/* Sort and Items per Page Selection */}
-
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-8">
         {/* Showing info */}
         <div className="text-gray-500">
           Showing{" "}
@@ -130,23 +129,27 @@ const PostList = () => {
         </div>
         {/* Items per page */}
       </div>
-
       {/* Post List */}
-
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {Array(size) // Array berdasarkan jumlah items per halaman
+          {Array(size)
             .fill(0)
             .map((_, index) => (
               <div
                 key={index}
                 className="bg-white rounded-lg shadow-lg overflow-hidden animate-pulse"
               >
+                {/* Image Skeleton */}
                 <div className="w-full h-48 bg-gray-300"></div>
+
+                {/* Content Skeleton */}
                 <div className="p-4">
-                  <div className="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
-                  <div className="h-6 bg-gray-300 rounded w-full mb-4"></div>
-                  <div className="h-3 bg-gray-200 rounded w-5/6"></div>
+                  <div className="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>{" "}
+                  {/* Title Skeleton */}
+                  <div className="h-6 bg-gray-300 rounded w-full mb-4"></div>{" "}
+                  {/* Excerpt Skeleton */}
+                  <div className="h-3 bg-gray-200 rounded w-5/6"></div>{" "}
+                  {/* Date Skeleton */}
                 </div>
               </div>
             ))}
@@ -176,9 +179,8 @@ const PostList = () => {
           })}
         </div>
       )}
-
       {/* Pagination */}
-      <div className="mt-4 flex justify-center items-center space-x-2">
+      <div className="my-10 flex justify-center items-center space-x-2">
         {/* Prev button */}
         {paginationLinks[0]?.url && (
           <button

@@ -12,10 +12,11 @@ const Navbar = () => {
 
   // State for active menu
   const [active, setActive] = useState("#ideas");
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State for hamburger menu
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-[#E9662E] shadow-lg transition-all duration-300">
-      <div className="w-full max-w-[1080px] mx-auto flex items-center justify-between ">
+      <div className="w-full max-w-[1080px] mx-auto flex items-center justify-between px-4 py-3">
         {/* Logo */}
         <div className="flex items-center">
           <a href="#">
@@ -27,8 +28,20 @@ const Navbar = () => {
           </a>
         </div>
 
+        {/* Hamburger Menu Button */}
+        <button
+          className="lg:hidden text-white text-2xl"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          &#9776; {/* Hamburger Icon */}
+        </button>
+
         {/* Menu */}
-        <div className="flex space-x-6 px-4 py-3 ">
+        <div
+          className={`lg:flex lg:space-x-6 ${
+            isMenuOpen ? "block" : "hidden"
+          } lg:block w-full absolute top-full left-0 bg-[#E9662E] lg:static lg:w-auto lg:flex-row lg:bg-transparent transition-all duration-300 ease-in-out`}
+        >
           {menuItems.map((item) => (
             <a
               key={item.href}
@@ -38,7 +51,7 @@ const Navbar = () => {
                 active === item.href
                   ? "text-white after:w-full after:bg-white"
                   : "text-white/70 hover:text-white after:w-0 after:bg-transparent"
-              } after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:h-[2px] after:transition-all after:duration-300 hover:after:w-full`}
+              } after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:h-[2px] after:transition-all after:duration-300 hover:after:w-full py-3 px-5 block`}
             >
               {item.label}
             </a>
