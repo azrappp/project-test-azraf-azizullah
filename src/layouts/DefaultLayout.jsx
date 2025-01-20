@@ -9,7 +9,7 @@ const DefaultLayout = ({ children }) => {
         {/* Navbar */}
         <Navbar />
         {/* Body */}
-        <main className="mx-auto z-10 pt-20 max-w-[1080px]">{children}</main>
+        <main className="z-10 pt-20 ">{children}</main>
       </div>
     </div>
   );

@@ -72,9 +72,9 @@ const PostList = () => {
   };
 
   return (
-    <div className="container mx-auto py-6 px-6">
+    <div className="mx-auto py-6 px-6 max-w-[1080px]">
       {/* Sort and Items per Page Selection */}
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex justify-between items-center mb-8 px-4">
         {/* Showing info */}
         <div className="text-gray-500">
           Showing{" "}
@@ -131,7 +131,7 @@ const PostList = () => {
       </div>
       {/* Post List */}
       {loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-16">
           {Array(size)
             .fill(0)
             .map((_, index) => (
@@ -155,7 +155,7 @@ const PostList = () => {
             ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-16">
           {posts.map((post) => {
             const imageUrl =
               post.medium_image[0]?.url ||
@@ -180,7 +180,7 @@ const PostList = () => {
         </div>
       )}
       {/* Pagination */}
-      <div className="my-10 flex justify-center items-center space-x-2">
+      <div className="my-10 flex justify-center items-center space-x-2 mx-auto">
         {/* Prev button */}
         {paginationLinks[0]?.url && (
           <button

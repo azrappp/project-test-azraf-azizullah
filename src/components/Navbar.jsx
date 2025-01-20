@@ -83,7 +83,7 @@ const Navbar = () => {
               className={`relative text-white text-lg font-medium transition duration-300 ease-in-out ${
                 active === item.href
                   ? "text-white after:w-full after:bg-white"
-                  : "text-gray-100 hover:text-white after:w-0 after:bg-transparent"
+                  : "text-orange-100 hover:text-white after:w-0 after:bg-transparent"
               } after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:h-[2px] after:transition-all after:duration-300 hover:after:w-full py-3 px-5 block`}
             >
               {item.label}
