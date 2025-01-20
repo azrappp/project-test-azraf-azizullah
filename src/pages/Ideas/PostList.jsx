@@ -15,6 +15,7 @@ const PostList = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [paginationLinks, setPaginationLinks] = useState([]);
   const [meta, setMeta] = useState(null);
+  const [backupImageIndex, setBackupImageIndex] = useState(0);
 
   useEffect(() => {
     fetchPosts();
@@ -66,9 +67,16 @@ const PostList = () => {
     setPage(newPage);
   };
 
-  const handleImageError = (e) => {
-    e.target.src =
-      "https://i.pinimg.com/736x/12/6a/65/126a656375ba45ac458c44a8fe2ce1c8.jpg";
+  const handleImageError = (e, index) => {
+    const backupImages = [
+      "https://i.pinimg.com/736x/12/6a/65/126a656375ba45ac458c44a8fe2ce1c8.jpg", // Gambar 1
+      "https://i.pinimg.com/736x/98/5b/ed/985bed1d7d1759ca1326de394a789ff0.jpg", // Gambar 2
+    ];
+
+    // Tentukan gambar backup berdasarkan index ganjil/genap
+    const nextIndex = index % 2; // 0 untuk gambar pertama, 1 untuk gambar kedua
+
+    e.target.src = backupImages[nextIndex];
   };
 
   return (
@@ -131,7 +139,7 @@ const PostList = () => {
       </div>
       {/* Post List */}
       {loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 px-16 md:px-0">
           {Array(size)
             .fill(0)
             .map((_, index) => (
@@ -155,8 +163,8 @@ const PostList = () => {
             ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-16">
-          {posts.map((post) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 px-16 md:px-0">
+          {posts.map((post, index) => {
             const imageUrl =
               post.medium_image[0]?.url ||
               "https://i.pinimg.com/736x/12/6a/65/126a656375ba45ac458c44a8fe2ce1c8.jpg";
@@ -173,7 +181,7 @@ const PostList = () => {
                 formattedDate={formattedDate}
                 title={post.title}
                 excerpt={post.excerpt}
-                onError={handleImageError}
+                onError={(e) => handleImageError(e, index)}
               />
             );
           })}

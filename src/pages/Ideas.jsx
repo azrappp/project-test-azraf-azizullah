@@ -25,7 +25,7 @@ const Ideas = () => {
           style={{
             backgroundImage: "url('/banner-ideas.webp')",
             transform: `translateY(${offsetY * 0.5}px)`,
-            clipPath: "polygon(0 0, 100% 0%, 100% 40%, 0 100%)", // Sesuaikan nilai ini
+            clipPath: "polygon(0 0, 100% 0%, 100% 80%, 0 100%)", // Sesuaikan nilai ini
           }}
         ></div>
 
