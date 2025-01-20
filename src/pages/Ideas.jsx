@@ -1,5 +1,5 @@
 import React from "react";
-import PostList from "./Ideas/PostList";
+import PostList from "../containers/PostList";
 import { useState, useEffect } from "react";
 
 const Ideas = () => {

@@ -42,7 +42,6 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-50 transition-transform duration-300 ease-in-out ${
@@ -80,11 +79,11 @@ const Navbar = () => {
               key={item.href}
               href={item.href}
               onClick={() => setActive(item.href)}
-              className={`relative text-white text-lg font-medium transition duration-300 ease-in-out ${
+              className={`relative text-lg font-medium transition duration-300 ease-in-out ${
                 active === item.href
                   ? "text-white after:w-full after:bg-white"
-                  : "text-orange-100 hover:text-white after:w-0 after:bg-transparent"
-              } after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:h-[2px] after:transition-all after:duration-300 hover:after:w-full py-3 px-5 block`}
+                  : "text-orange-200 hover:text-white after:w-0 after:bg-transparent"
+              } after:content-[''] after:absolute after:left-0 after:bottom-[-6px] after:h-[2px] after:transition-all after:duration-300 hover:after:w-full py-3 px-5 block`}
             >
               {item.label}
             </a>
