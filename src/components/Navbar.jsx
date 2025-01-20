@@ -47,16 +47,16 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 w-full z-50 transition-transform duration-300 ease-in-out ${
         isNavbarVisible ? "translate-y-0" : "-translate-y-full"
-      } ${isScrolled ? "bg-[#E9662E]/90" : "bg-[#E9662E]"}`}
+      } ${isScrolled ? "bg-[#E9662E]/60 backdrop-blur-md" : "bg-[#E9662E]"}`}
     >
-      <div className="w-full max-w-[1080px] mx-auto flex items-center justify-between px-4 py-3">
+      <div className="w-full max-w-[1080px] mx-auto flex items-center justify-between px-4">
         {/* Logo */}
         <div className="flex items-center">
           <a href="#">
             <img
-              src="/suitmedia-logo.png" // Replace with the path to your logo
+              src="/suitmedia-logo-nav.png" // Replace with the path to your logo
               alt="Suitmedia Logo"
-              className="h-20 w-20 object-contain"
+              className="h-[100px] w-[140px] object-contain"
             />
           </a>
         </div>
@@ -83,7 +83,7 @@ const Navbar = () => {
               className={`relative text-white text-lg font-medium transition duration-300 ease-in-out ${
                 active === item.href
                   ? "text-white after:w-full after:bg-white"
-                  : "text-orange-100 hover:text-white after:w-0 after:bg-transparent"
+                  : "text-orange-200 hover:text-white after:w-0 after:bg-transparent"
               } after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:h-[2px] after:transition-all after:duration-300 hover:after:w-full py-3 px-5 block`}
             >
               {item.label}
