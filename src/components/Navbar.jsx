@@ -49,14 +49,14 @@ const Navbar = () => {
         isNavbarVisible ? "translate-y-0" : "-translate-y-full"
       } ${isScrolled ? "bg-[#E9662E]/60 backdrop-blur-md" : "bg-[#E9662E]"}`}
     >
-      <div className="w-full max-w-[1080px] mx-auto flex items-center justify-between px-4">
+      <div className="w-full max-w-[1080px] mx-auto flex items-center justify-between px-4 py-2">
         {/* Logo */}
         <div className="flex items-center">
           <a href="#">
             <img
               src="/suitmedia-logo-nav.png" // Replace with the path to your logo
               alt="Suitmedia Logo"
-              className="h-[100px] w-[140px] object-contain"
+              className="h-[80px] w-[120px] object-contain"
             />
           </a>
         </div>
